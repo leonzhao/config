@@ -1,1 +1,4 @@
-# config
+# MetaConfig
+
+Golang Configuration tool
+
