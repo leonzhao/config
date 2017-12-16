@@ -4,7 +4,7 @@ GOFILES := $(shell find . -name "*.go" -type f -not -path "./vendor/*")
 
 
 install: deps
-	govendor sync
+	go get ./...
 
 .PHONY: test
 test:
