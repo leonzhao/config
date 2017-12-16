@@ -1,43 +1,44 @@
 package config
 
 import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/BurntSushi/toml"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"os"
 	"path/filepath"
-	"github.com/BurntSushi/toml"
-	"errors"
-	"io/ioutil"
 	"strings"
-	"gopkg.in/yaml.v2"
-	"encoding/json"
-	"fmt"
 )
 
 var (
 	ErrConfigPath = errors.New("error config path")
 )
+
 const (
-	DefaultFolder = "/config"
+	DefaultFolder   = "/config"
 	DefaultFileName = "default.toml"
 )
 
 const (
 	EnvDevelopment = "development"
-	EnvTesting  = "testing"
-	EnvProduction = "production"
+	EnvTesting     = "testing"
+	EnvProduction  = "production"
 )
 
 // MetaConfig
 type MetaConfig struct {
 	Environment string
-	Path string
-	Verbose bool
+	Path        string
+	Verbose     bool
 }
 
 // New one instance of MetaConfig
 func New() *MetaConfig {
 	var config MetaConfig
 	env := os.Getenv("GOENV")
-	if  env == "" {
+	if env == "" {
 		config.Environment = EnvDevelopment
 	}
 
@@ -55,9 +56,9 @@ func New() *MetaConfig {
 	return &config
 }
 
-func (mc *MetaConfig)Load(config interface{}) error {
-	extFiles , err := getConfigFiles(mc.Path, mc.Environment)
-	for _,v := range extFiles {
+func (mc *MetaConfig) Load(config interface{}) error {
+	extFiles, err := getConfigFiles(mc.Path, mc.Environment)
+	for _, v := range extFiles {
 		err = parseFile(config, v)
 		if err != nil {
 			return err
@@ -67,10 +68,9 @@ func (mc *MetaConfig)Load(config interface{}) error {
 	return nil
 }
 
-
 // getConfigFiles
 // TODO: 可增加读取对应环境变量的文件夹里的所有配置文件名称
-func getConfigFiles(path string, env string)([]string, error) {
+func getConfigFiles(path string, env string) ([]string, error) {
 	var files []string
 
 	if path == "" {
@@ -84,7 +84,7 @@ func getConfigFiles(path string, env string)([]string, error) {
 	files = append(files, defaultEnvConfig)
 
 	extConfigFolder := filepath.Join(path, env)
-	err := filepath.Walk(extConfigFolder, func (path string, f os.FileInfo, err error) error {
+	err := filepath.Walk(extConfigFolder, func(path string, f os.FileInfo, err error) error {
 		if f == nil {
 			return err
 		}

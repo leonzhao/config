@@ -1,17 +1,17 @@
 package config
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
-	"path/filepath"
 	"os"
+	"path/filepath"
+	"testing"
 )
 
 type Config struct {
-	Name string
+	Name   string
 	Branch string
-	DB DBConfig `toml:"database"`
-	Redis RedisConfig `toml:"redis"`
+	DB     DBConfig    `toml:"database"`
+	Redis  RedisConfig `toml:"redis"`
 }
 
 type RedisConfig struct {
