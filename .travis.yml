@@ -8,8 +8,8 @@ go:
 git:
   depth: 3
 
-install: deps
-	govendor sync
+install:
+  - make install
 
 script:
   - make vet

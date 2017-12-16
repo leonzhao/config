@@ -2,6 +2,10 @@ GOFMT ?= gofmt "-s"
 PACKAGES ?= $(shell go list ./... | grep -v /vendor/)
 GOFILES := $(shell find . -name "*.go" -type f -not -path "./vendor/*")
 
+
+install: deps
+	govendor sync
+
 .PHONY: test
 test:
 	go test
