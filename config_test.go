@@ -44,4 +44,15 @@ func TestLoad(t *testing.T) {
 
 	var config Config
 	mc.Load(&config)
+	assert.Equal(t, "metaconfig", config.Name)
+	assert.Equal(t, "dev", config.Branch)
+	assert.Equal(t, "localhost", config.DB.Host)
+	assert.Equal(t, uint(3500), config.DB.Port)
+	assert.Equal(t, "root", config.DB.Username)
+	assert.Equal(t, "mc_dev", config.DB.Password)
+	assert.Equal(t, "config", config.DB.DBName)
+	assert.Equal(t, "utf8", config.DB.Charset)
+	assert.Equal(t, true, config.DB.ParseTime)
+	assert.Equal(t, "127.0.0.1", config.Redis.Host)
+	assert.Equal(t, uint(4000), config.Redis.Port)
 }
