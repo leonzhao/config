@@ -1,0 +1,9 @@
+name = "metaconfig"
+branch = "release"
+
+[database]
+host = "localhost"
+port = 6033
+username = "root"
+password = "mc_prod"
+dbname = "config"

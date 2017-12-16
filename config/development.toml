@@ -1,0 +1,9 @@
+name = "metaconfig"
+branch = "dev"
+
+[database]
+host = "localhost"
+port = 3500
+username = "root"
+password = "mc_dev"
+dbname = "config"
