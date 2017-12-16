@@ -8,6 +8,9 @@ go:
 git:
   depth: 3
 
+install: deps
+	govendor sync
+
 script:
   - make vet
   - make fmt-check
