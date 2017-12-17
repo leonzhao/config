@@ -58,6 +58,8 @@ func (mc *MetaConfig) Load(config interface{}) error {
 		}
 	}()
 
+	fmt.Println("GOENV=", mc.Environment)
+
 	extFiles, err := getConfigFiles(mc.Path, mc.Environment)
 	for _, v := range extFiles {
 		err = parseFile(config, v)
