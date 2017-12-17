@@ -2,13 +2,19 @@ GOFMT ?= gofmt "-s"
 PACKAGES ?= $(shell go list ./... | grep -v /vendor/)
 GOFILES := $(shell find . -name "*.go" -type f -not -path "./vendor/*")
 
+all:
+	make vet
+	make fmt-check
+	#- make embedmd
+	make misspell-check
+	make test
 
 install: deps
 	go get -u -v -t ./...
 
 .PHONY: test
 test:
-	go test
+	go test -v
 
 .PHONY: fmt
 fmt:
