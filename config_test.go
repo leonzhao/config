@@ -1,11 +1,11 @@
 package config
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"path/filepath"
 	"testing"
-	"fmt"
 )
 
 type Config struct {
@@ -31,7 +31,7 @@ type DBConfig struct {
 }
 
 func TestNew(t *testing.T) {
-	configPath, _:= os.Getwd()
+	configPath, _ := os.Getwd()
 	configPath = filepath.Join(configPath, "/config")
 	mc := New(configPath)
 	assert.Equal(t, EnvDevelopment, mc.Environment)
@@ -39,15 +39,17 @@ func TestNew(t *testing.T) {
 
 	assert.Equal(t, configPath, mc.Path)
 
-	os.Setenv("GOENV", "testing")
+	os.Setenv("GOENV", EnvTesting)
 	fmt.Println(os.Getenv("GOENV"))
 	mc = New(configPath)
 	assert.Equal(t, EnvTesting, mc.Environment)
 }
 
 func TestLoad(t *testing.T) {
-	configPath, _:= os.Getwd()
+	configPath, _ := os.Getwd()
 	configPath = filepath.Join(configPath, "/config")
+
+	os.Setenv("GOENV", EnvDevelopment)
 	mc := New(configPath)
 
 	var config Config

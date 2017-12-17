@@ -35,13 +35,13 @@ func New(path string) *MetaConfig {
 	env := os.Getenv("GOENV")
 	if env == "" {
 		config.Environment = EnvDevelopment
-	}else {
+	} else {
 		config.Environment = env
 	}
 
 	if path != "" {
 		config.Path = path
-	}else {
+	} else {
 		currentDir, _ := os.Getwd()
 		configPath := filepath.Join(currentDir, "/config")
 		config.Path = configPath
