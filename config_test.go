@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"fmt"
 )
 
 type Config struct {
@@ -37,6 +38,11 @@ func TestNew(t *testing.T) {
 	assert.Equal(t, true, mc.Verbose)
 
 	assert.Equal(t, configPath, mc.Path)
+
+	os.Setenv("GOENV", "testing")
+	fmt.Println(os.Getenv("GOENV"))
+	mc = New(configPath)
+	assert.Equal(t, EnvTesting, mc.Environment)
 }
 
 func TestLoad(t *testing.T) {

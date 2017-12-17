@@ -35,6 +35,8 @@ func New(path string) *MetaConfig {
 	env := os.Getenv("GOENV")
 	if env == "" {
 		config.Environment = EnvDevelopment
+	}else {
+		config.Environment = env
 	}
 
 	if path != "" {
