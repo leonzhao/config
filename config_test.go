@@ -30,17 +30,19 @@ type DBConfig struct {
 }
 
 func TestNew(t *testing.T) {
-	mc := New()
+	configPath, _:= os.Getwd()
+	configPath = filepath.Join(configPath, "/config")
+	mc := New(configPath)
 	assert.Equal(t, EnvDevelopment, mc.Environment)
 	assert.Equal(t, true, mc.Verbose)
 
-	path, _ := os.Getwd()
-	configPath := filepath.Join(path, "/config")
 	assert.Equal(t, configPath, mc.Path)
 }
 
 func TestLoad(t *testing.T) {
-	mc := New()
+	configPath, _:= os.Getwd()
+	configPath = filepath.Join(configPath, "/config")
+	mc := New(configPath)
 
 	var config Config
 	mc.Load(&config)

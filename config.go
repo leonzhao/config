@@ -30,15 +30,20 @@ type MetaConfig struct {
 }
 
 // New one instance of MetaConfig
-func New() *MetaConfig {
+func New(path string) *MetaConfig {
 	var config MetaConfig
 	env := os.Getenv("GOENV")
 	if env == "" {
 		config.Environment = EnvDevelopment
 	}
 
-	currentDir, _ := os.Getwd()
-	config.Path = filepath.Join(currentDir, DefaultFolder)
+	if path != "" {
+		config.Path = path
+	}else {
+		currentDir, _ := os.Getwd()
+		configPath := filepath.Join(currentDir, "/config")
+		config.Path = configPath
+	}
 
 	switch config.Environment {
 	case EnvDevelopment:
